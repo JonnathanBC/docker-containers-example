@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./symfony-app/:/var/www/symfony/
+    ports:
+      - 8001:80
+    networks:
+      - symfony
+
+networks:
+  symfony:

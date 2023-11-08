@@ -1,16 +1,28 @@
 version: '3'
 
 services:
+  php:
+    container_name: php-8
+    build:
+      context: ./php
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./app:/var/www/symfony
+    networks:
+      - symfony
+
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
     volumes:
-      - ./symfony-app/:/var/www/symfony/
+      - ./symfony/:/var/www/symfony/
     ports:
       - 8001:80
     networks:
       - symfony
+    depends_on:
+      - php
 
 networks:
   symfony:
